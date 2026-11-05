@@ -1,0 +1,10 @@
+# .gitignore — qemu-board repo
+build/
+*.bin
+*.elf
+*.o
+*.exe
+__pycache__/
+*.pyc
+.mimosa/
+.vscode/
