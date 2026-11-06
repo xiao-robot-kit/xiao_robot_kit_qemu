@@ -1,26 +1,28 @@
 # XIAO QEMU Board — ESP32-S3 Virtual Hardware
 
 > Run XIAO Robot Kit firmware in QEMU **without a physical board**.
-> Supports both **ESP-IDF** and **Arduino** programs.
+> Currently: **ESP-IDF** programs. Arduino support is on the [Roadmap](#roadmap).
 
 ## What This Provides
 
-| Component | Purpose |
-| --- | --- |
-| `scripts/setup-qemu.ps1` | One-click: install QEMU + ESP-IDF toolchain |
-| `scripts/run-idf.ps1` | Build & run any ESP-IDF project in QEMU |
-| `scripts/run-arduino.ps1` | Compile Arduino sketch & run in QEMU |
-| `scripts/serial-monitor.ps1` | Connect to virtual UART0 (console + telemetry frames) |
-| `configs/` | QEMU machine configs (flash layout, efuse, UART routing) |
-| `examples/` | Minimal IDF + Arduino examples (blink, IMU, motor) |
+| Component | Purpose | Status |
+| --- | --- | --- |
+| `scripts/setup-qemu.ps1` | One-click: install QEMU + ESP-IDF toolchain | ✅ shipped |
+| `scripts/run-idf.ps1` | Build & run any ESP-IDF project in QEMU | ✅ shipped |
+| `scripts/serial-monitor.ps1` | Connect to virtual UART0 (console + telemetry frames) | ✅ shipped |
+| `docs/protocol-spec.md` | Full serial frame protocol spec | ✅ shipped |
+| `docs/faq.md` | Common issues & solutions | ✅ shipped |
+| `scripts/run-arduino.ps1` | Compile Arduino sketch & run in QEMU | ⏳ roadmap |
+| `configs/` | QEMU machine configs (flash layout, efuse, UART routing) | ⏳ roadmap |
+| `examples/` | Minimal IDF + Arduino examples (blink, IMU, motor) | ⏳ roadmap |
 
 ## Quick Start (5 minutes, no hardware needed)
 
 ### 1. Setup (once)
 
 ```powershell
-git clone https://github.com/xiao-robot-kit/qemu-board.git
-cd qemu-board
+git clone https://github.com/xiao-robot-kit/xiao_robot_kit_qemu.git
+cd xiao_robot_kit_qemu
 .\scripts\setup-qemu.ps1
 ```
 
@@ -34,13 +36,7 @@ Installs QEMU (Espressif build) + configures ESP-IDF v6.1 toolchain paths.
 
 Compiles with dual macro (`-DEXP_SIM=1 -DEXP_QEMU_UART=1`) → merges flash image → boots QEMU → opens serial monitor.
 
-### 3. Run an Arduino sketch
-
-```powershell
-.\scripts\run-arduino.ps1 -Sketch path\to\your\sketch.ino
-```
-
-Compiles sketch via arduino-cli → converts to flashable image → boots QEMU.
+> Arduino sketches: planned — see [Roadmap](#roadmap).
 
 ## Virtual Board Specs (QEMU esp32s3)
 
@@ -80,27 +76,24 @@ Full spec: [protocol-spec.md](docs/protocol-spec.md)
 ## Directory Layout
 
 ```
-qemu-board/
+xiao_robot_kit_qemu/
 ├── scripts/
 │   ├── setup-qemu.ps1         ← One-click environment setup
 │   ├── run-idf.ps1            ← Build + flash + run ESP-IDF project
-│   ├── run-arduino.ps1        ← Build + flash + run Arduino sketch
-│   ├── serial-monitor.ps1     ← TCP socket → console/telemetry display
-│   └── prepare-flash.py       ← Merge-bin flash image from build
-├── configs/
-│   ├── esp32s3-qemu.cfg       ← QEMU machine configuration
-│   └── flash-layout.txt       ← Partition table reference
-├── examples/
-│   ├── idf-blink/             ← Minimal ESP-IDF example
-│   ├── idf-imu/               ← IMU synthetic data example
-│   ├── arduino-blink/         ← Minimal Arduino example
-│   └── arduino-imu/           ← Arduino IMU example
+│   ├── run-idf.ps1            ← Build + flash + run ESP-IDF project
+│   └── serial-monitor.ps1     ← TCP socket → console/telemetry display
 ├── docs/
 │   ├── protocol-spec.md       ← Full frame protocol specification
 │   └── faq.md                 ← Common issues & solutions
 ├── LICENSE                    ← MIT
 └── README.md
 ```
+
+## Roadmap
+
+- [ ] `run-arduino.ps1` — compile Arduino sketch via arduino-cli → run in QEMU
+- [ ] `configs/` — machine configs (flash layout, efuse, UART routing)
+- [ ] `examples/` — minimal IDF/Arduino examples (blink, IMU, motor)
 
 ## License
 
@@ -109,4 +102,6 @@ MIT — see [LICENSE](LICENSE)
 ## Related
 
 - [xiao_robot_kit_idf](https://github.com/xiao-robot-kit/xiao_robot_kit_idf) / [xiao_robot_kit_arduino](https://github.com/xiao-robot-kit/xiao_robot_kit_arduino) — same C core, IDF and Arduino forms
-- [xiao-robot-kit/vibe](https://github.com/xiao-robot-kit/vibe) — AI multi-agent development methodology
+- [xiao_robot_kit_vibe](https://github.com/xiao-robot-kit/xiao_robot_kit_vibe) — AI multi-agent development methodology
+- [xiao_robot_kit_docs](https://github.com/xiao-robot-kit/xiao_robot_kit_docs) — hardware intro + tutorials
+- [xiao_robot_kit_host](https://github.com/xiao-robot-kit/xiao_robot_kit_host) — host-side debug tooling & visual demos
