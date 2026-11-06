@@ -108,5 +108,5 @@ MIT — see [LICENSE](LICENSE)
 
 ## Related
 
-- [xiao-robot-kit/libraries](https://github.com/xiao-robot-kit/libraries) — C component libraries (IMU, motor, attitude, pstore)
+- [xiao_robot_kit_idf](https://github.com/xiao-robot-kit/xiao_robot_kit_idf) / [xiao_robot_kit_arduino](https://github.com/xiao-robot-kit/xiao_robot_kit_arduino) — same C core, IDF and Arduino forms
 - [xiao-robot-kit/vibe](https://github.com/xiao-robot-kit/vibe) — AI multi-agent development methodology
